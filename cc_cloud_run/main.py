@@ -18,13 +18,10 @@ votes_collection = db.collection("votes")
 
 @app.get("/")
 async def read_root(request: Request):
-    # ====================================
-    # ++++ START CODE HERE ++++
-    # ====================================
+    print("ROOT ENDPOINT CALLED")
 
     # get all votes from firestore collection
     votes = votes_collection.stream()
-    # @note: we are storing the votes in `vote_data` list because the firestore stream closes after certain period of time
     vote_data = []
     tabs_count = 0
     spaces_count = 0
@@ -50,11 +47,7 @@ async def create_vote(team: Annotated[str, Form()]):
     if team not in ["TABS", "SPACES"]:
         raise HTTPException(status_code=400, detail="Invalid vote")
     
-    print("ENDPOINT CALLED")
-
-    # ====================================
-    # ++++ START CODE HERE ++++
-    # ====================================
+    print("CREATE VOTE ENDPOINT CALLED")
 
     try:
         votes_collection.add({
@@ -66,6 +59,3 @@ async def create_vote(team: Annotated[str, Form()]):
         print("error submitting votes")
         return {"detail": "error submitting votes"}
 
-    # ====================================
-    # ++++ STOP CODE ++++
-    # ====================================

@@ -13,9 +13,7 @@
  * Firebase configuration
  * @type {{apiKey: string, authDomain: string}}
  */
-var firebaseConfig = {
+var config = {
   apiKey: "AIzaSyAu61Zu9cAvS8W3HFNcB13er5ngD-UWnEU",
   authDomain: "cs1660-proj3-454416.firebaseapp.com",
 };
-
-export default firebaseConfig;

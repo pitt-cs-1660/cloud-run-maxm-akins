@@ -32,7 +32,6 @@ function authDisabled() {
   return urlParams.get('auth') === 'false' && hostname === 'localhost';
 }
 
-
 // create ID token
 async function createIdToken() {
   if (authDisabled()) {
@@ -117,10 +116,7 @@ async function vote(team) {
     try {
       const token = await createIdToken();
 
-
-
-
-      const response = await fetch("http://localhost:9080", {
+      const response = await fetch("https://tabs-vs-spaces-763280880704.us-central1.run.app", {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
@@ -128,7 +124,6 @@ async function vote(team) {
         },
         body: new URLSearchParams({ team })
       });
-
 
       if (!response.ok) {
         throw new Error(`Error: ${response.status} ${await response.text()}`);
@@ -146,4 +141,3 @@ async function vote(team) {
     window.alert('User not signed in.');
   }
 }
-
