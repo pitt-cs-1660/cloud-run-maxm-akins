@@ -18,20 +18,27 @@ votes_collection = db.collection("votes")
 
 @app.get("/")
 async def read_root(request: Request):
-    # ====================================
-    # ++++ START CODE HERE ++++
-    # ====================================
+    print("ROOT ENDPOINT CALLED")
 
-    # stream all votes; count tabs / spaces votes, and get recent votes
+    # get all votes from firestore collection
+    votes = votes_collection.stream()
+    vote_data = []
+    tabs_count = 0
+    spaces_count = 0
+    for v in votes:
+        dict_data = v.to_dict()
+        if dict_data["team"] == "TABS":
+            tabs_count += 1
+        elif dict_data["team"] == "SPACES":
+            spaces_count += 1
+        vote_data.append(dict_data)
+    
 
-    # ====================================
-    # ++++ STOP CODE ++++
-    # ====================================
     return templates.TemplateResponse("index.html", {
         "request": request,
-        "tabs_count": 0,
-        "spaces_count": 0,
-        "recent_votes": []
+        "tabs_count": tabs_count,
+        "spaces_count": spaces_count,
+        "recent_votes": vote_data
     })
 
 
@@ -39,14 +46,16 @@ async def read_root(request: Request):
 async def create_vote(team: Annotated[str, Form()]):
     if team not in ["TABS", "SPACES"]:
         raise HTTPException(status_code=400, detail="Invalid vote")
+    
+    print("CREATE VOTE ENDPOINT CALLED")
 
-    # ====================================
-    # ++++ START CODE HERE ++++
-    # ====================================
+    try:
+        votes_collection.add({
+            "team": team,
+            "time_cast": datetime.datetime.utcnow().isoformat()
+        })
+        return {"detail": "vote submitted"}
+    except Exception as e:
+        print("error submitting votes")
+        return {"detail": "error submitting votes"}
 
-    # create a new vote document in firestore
-    return {"detail": "Not implemented yet!"}
-
-    # ====================================
-    # ++++ STOP CODE ++++
-    # ====================================
