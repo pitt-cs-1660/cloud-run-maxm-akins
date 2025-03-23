@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang=en xmlns:th="http://www.thymeleaf.org">
+
 <head>
   <title>TABS v SPACES</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
@@ -11,8 +12,10 @@
   <script src="https://www.gstatic.com/firebasejs/8.0/firebase.js"></script>
   <script src="/static/config.js"></script>
   <script src="/static/firebase.js"></script>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>(•‿•)</text></svg>">
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>(•‿•)</text></svg>">
 </head>
+
 <body class="yellow lighten-5">
   <nav class="teal darken-3">
     <div class="nav-wrapper container"><a class="brand-logo center" href="#!">TABS v SPACES</a>
@@ -42,10 +45,11 @@
       </div>
     </div>
     <h4 class="header center">Recent Votes</h4>
-    <ul class="container collection center" >
+    <ul class="container collection center">
       {% for vote in recent_votes %}
       <li class="collection-item avatar">
-        <i class="material-icons circle teal lighten-1">{% if vote.team == "TABS" %}》{% elif vote.team == "SPACES" %}⎵{%else%}❓{% endif %}</i>
+        <i class="material-icons circle teal lighten-1">{% if vote.team == "TABS" %}》{% elif vote.team == "SPACES"
+          %}⎵{%else%}❓{% endif %}</i>
         <span class="title">A vote for </span><b>'{{vote.team}}'</b>
         <p>was cast at {{vote.time_cast}}</p>
       </li>
@@ -53,12 +57,19 @@
     </ul>
   </div>
   <script>
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
       <!-- add Event Listener "click" to the vote -->
-      // document.getElementById("voteTabs").addEventListener("click", function () {
-      //   vote("TABS");
-      // });
+      document.getElementById("voteTabs").addEventListener("click", function () {
+        vote("TABS");
+      });
+      document.getElementById("voteSpaces").addEventListener("click", function () {
+        vote("SPACES");
+      });
+      document.getElementById("signInButton").addEventListener("click", function () {
+        toggle();
+      });
     })
   </script>
 </body>
+
 </html>
